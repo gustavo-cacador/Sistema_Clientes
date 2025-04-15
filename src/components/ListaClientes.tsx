@@ -6,7 +6,7 @@ const ListaClientes = () => {
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5173/clientes") // <-- substitua pela URL real da API
+    fetch("http://localhost:5173/clientes")
       .then(res => res.json())
       .then(data => {
         setClientes(data);
