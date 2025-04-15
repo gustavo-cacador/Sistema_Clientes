@@ -14,7 +14,7 @@ function Clientes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [busca, setBusca] = useState('');
 
-  // Estado do novo cliente (formulário)
+  //estado do novo cliente do formulário
   const [novoCliente, setNovoCliente] = useState({
     nome: '',
     cpfCnpj: '',

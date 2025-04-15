@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Clientes from './pages/Clientes';
-import ClienteDetalhes from './pages/ClienteDetalhes'; // Importa a nova página
+import ClienteDetalhes from './pages/ClienteDetalhes';
 import './App.css';
 
 function App() {
@@ -20,8 +20,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/clientes" element={<Clientes />} />
-            <Route path="/clientes/:id" element={<ClienteDetalhes />} /> {/* Rota de detalhes */}
-            {/* Rotas futuras: contas, agências */} 
+            <Route path="/clientes/:id" element={<ClienteDetalhes />} />
           </Routes>
         </main>
       </div>
