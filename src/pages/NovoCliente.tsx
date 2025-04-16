@@ -7,8 +7,13 @@ function NovoCliente() {
     nome: '',
     cpfCnpj: '',
     email: '',
-    rendaAnual: ''
-  });
+    rendaAnual: '',
+    patrimonio: '',
+    estadoCivil: '',
+    endereco: '',
+    dataNascimento: '',
+    codigoAgencia: ''
+  });  
 
   const navigate = useNavigate();
 
@@ -22,7 +27,9 @@ function NovoCliente() {
     try {
       await axios.post('http://localhost:8080/api/clientes', {
         ...form,
-        rendaAnual: parseFloat(form.rendaAnual)
+        rendaAnual: parseFloat(form.rendaAnual),
+        patrimonio: parseFloat(form.patrimonio),
+        codigoAgencia: parseInt(form.codigoAgencia)
       });
 
       alert('Cliente cadastrado com sucesso!');
@@ -69,6 +76,12 @@ function NovoCliente() {
           onChange={handleChange}
           required
         />
+        <input type="text" name="estadoCivil" placeholder="Estado Civil" value={form.estadoCivil} onChange={handleChange} required />
+        <input type="text" name="endereco" placeholder="Endereço" value={form.endereco} onChange={handleChange} required />
+        <input type="date" name="dataNascimento" placeholder="Data de Nascimento" value={form.dataNascimento} onChange={handleChange} required />
+        <input type="number" name="patrimonio" placeholder="Patrimônio" value={form.patrimonio} onChange={handleChange} required />
+        <input type="number" name="codigoAgencia" placeholder="Código da Agência" value={form.codigoAgencia} onChange={handleChange} required />
+
         <button type="submit">Cadastrar</button>
       </form>
     </div>

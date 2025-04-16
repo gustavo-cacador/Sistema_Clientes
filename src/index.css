@@ -65,4 +65,45 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  .clientes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .clientes-container input[type="text"],
+  .clientes-container input[type="email"],
+  .clientes-container input[type="number"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    margin: 4px 0;
+  }
+  
+  .clientes-container form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .clientes-container table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .clientes-container th,
+  .clientes-container td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }  
 }

@@ -8,6 +8,7 @@ interface Cliente {
   cpfCnpj: string;
   email: string;
   rendaAnual: number;
+  rg: string;
 }
 
 function Clientes() {
@@ -19,7 +20,8 @@ function Clientes() {
     nome: '',
     cpfCnpj: '',
     email: '',
-    rendaAnual: ''
+    rendaAnual: '',
+    rg: ''
   });
 
   useEffect(() => {
@@ -70,7 +72,8 @@ function Clientes() {
       nome: '',
       cpfCnpj: '',
       email: '',
-      rendaAnual: ''
+      rendaAnual: '',
+      rg: ''
     });
     setEditandoId(null);
     carregarClientes();
@@ -81,7 +84,8 @@ function Clientes() {
       nome: cliente.nome,
       cpfCnpj: cliente.cpfCnpj,
       email: cliente.email,
-      rendaAnual: cliente.rendaAnual.toString()
+      rendaAnual: cliente.rendaAnual.toString(),
+      rg: cliente.rg
     });
     setEditandoId(cliente.id);
   };
@@ -120,6 +124,7 @@ function Clientes() {
             <th>CPF/CNPJ</th>
             <th>Email</th>
             <th>Renda Anual</th>
+            <th>RG</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -132,6 +137,7 @@ function Clientes() {
               <td>{cliente.cpfCnpj}</td>
               <td>{cliente.email}</td>
               <td>R$ {cliente.rendaAnual.toFixed(2)}</td>
+              <td>{cliente.rg}</td>
               <td>
                 <button onClick={() => editarCliente(cliente)}>Editar</button>
                 <button onClick={() => excluirCliente(cliente.id)}>Excluir</button>
@@ -172,6 +178,14 @@ function Clientes() {
           name="rendaAnual"
           placeholder="Renda Anual"
           value={novoCliente.rendaAnual}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="rg"
+          placeholder="RG"
+          value={novoCliente.rg}
           onChange={handleChange}
           required
         />

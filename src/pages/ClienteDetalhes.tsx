@@ -31,22 +31,19 @@ function ClienteDetalhes() {
 
   if (!cliente) return <p>Carregando...</p>;
 
-  const rendaAnual = cliente.rendaAnual ?? 0; // Verifica se rendaAnual está presente, senão define como 0
-  const patrimonio = cliente.patrimonio ?? 0; // Verifica se patrimonio está presente, senão define como 0
-
   return (
-    <div>
+    <div style={{ padding: '20px', maxWidth: '700px', margin: '0 auto' }}>
       <h2>Detalhes do Cliente</h2>
       <p><strong>Nome:</strong> {cliente.nome}</p>
+      <p><strong>Nome Social:</strong> {cliente.nomeSocial || 'N/A'}</p>
       <p><strong>CPF/CNPJ:</strong> {cliente.cpfCnpj}</p>
+      <p><strong>RG:</strong> {cliente.rg || 'N/A'}</p>
       <p><strong>Email:</strong> {cliente.email}</p>
-      <p><strong>Renda Anual:</strong> R$ {rendaAnual > 0 ? rendaAnual.toFixed(2) : 'N/A'}</p>
-      <p><strong>Patrimônio:</strong> R$ {patrimonio > 0 ? patrimonio.toFixed(2) : 'N/A'}</p>
+      <p><strong>Renda Anual:</strong> R$ {cliente.rendaAnual.toFixed(2)}</p>
+      <p><strong>Patrimônio:</strong> R$ {cliente.patrimonio.toFixed(2)}</p>
       <p><strong>Estado Civil:</strong> {cliente.estadoCivil}</p>
       <p><strong>Endereço:</strong> {cliente.endereco}</p>
-      <p><strong>Data de Nascimento:</strong> {cliente.dataNascimento}</p>
-      {cliente.nomeSocial && <p><strong>Nome Social:</strong> {cliente.nomeSocial}</p>}
-      {cliente.rg && <p><strong>RG:</strong> {cliente.rg}</p>}
+      <p><strong>Data de Nascimento:</strong> {new Date(cliente.dataNascimento).toLocaleDateString()}</p>
       <p><strong>Código da Agência:</strong> {cliente.codigoAgencia}</p>
     </div>
   );

@@ -1,16 +1,1 @@
-[
-  {
-    "id": "001d17c3-fc6e-410c-b8a6-e685bcbf279a",
-    "nome": "Maria Teste",
-    "cpfCnpj": "12345678901",
-    "email": "maria@teste.com",
-    "rendaAnual": 5000
-  },
-  {
-    "id": "873a0e24-92e8-4af5-bc54-0feed35bcef0",
-    "nome": "dawdwa",
-    "cpfCnpj": "27187281",
-    "email": "gus@gmail.com",
-    "rendaAnual": 11111
-  }
-]
+[]
