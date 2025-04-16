@@ -81,6 +81,15 @@ app.delete('/api/clientes/:id', (req, res) => {
   }
 });
 
+app.get('/api/clientes/:id', (req, res) => {
+  const { id } = req.params;
+  const cliente = clientes.find(c => c.id === id);
+  if (!cliente) {
+    return res.status(404).json({ mensagem: 'Cliente não encontrado' });
+  }
+  res.json(cliente);
+});
+
 app.listen(PORT, () => {
   console.log(`API rodando em http://localhost:${PORT}`);
 });

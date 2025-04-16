@@ -12,7 +12,7 @@ function App() {
           <nav>
             <ul>
               <li><Link to="/clientes">Clientes</Link></li>
-              {/* Adicionar outros itens quando tiver as páginas */} 
+              {/* Outros links de navegação */}
             </ul>
           </nav>
         </header>
@@ -20,6 +20,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/clientes" element={<Clientes />} />
+            {/* Esta rota está corretamente configurada para o detalhe do cliente */}
             <Route path="/clientes/:id" element={<ClienteDetalhes />} />
           </Routes>
         </main>
