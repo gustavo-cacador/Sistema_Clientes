@@ -13,8 +13,8 @@ interface Cliente {
 function Clientes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [busca, setBusca] = useState('');
+  const [editandoId, setEditandoId] = useState<string | null>(null);
 
-  //estado do novo cliente do formulário
   const [novoCliente, setNovoCliente] = useState({
     nome: '',
     cpfCnpj: '',
@@ -42,21 +42,59 @@ function Clientes() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/api/clientes', {
+
+    const clienteData = {
       ...novoCliente,
       rendaAnual: parseFloat(novoCliente.rendaAnual)
-    })
-      .then(() => {
-        alert("Cliente cadastrado com sucesso!");
-        setNovoCliente({
-          nome: '',
-          cpfCnpj: '',
-          email: '',
-          rendaAnual: ''
-        });
-        carregarClientes();
-      })
-      .catch(err => console.error(err));
+    };
+
+    if (editandoId) {
+      axios.put(`http://localhost:8080/api/clientes/${editandoId}`, clienteData)
+        .then(() => {
+          alert('Cliente atualizado com sucesso!');
+          resetarFormulario();
+        })
+        .catch(err => console.error(err));
+    } else {
+      axios.post('http://localhost:8080/api/clientes', clienteData)
+        .then(() => {
+          alert('Cliente cadastrado com sucesso!');
+          resetarFormulario();
+        })
+        .catch(err => console.error(err));
+    }
+  };
+
+  const resetarFormulario = () => {
+    setNovoCliente({
+      nome: '',
+      cpfCnpj: '',
+      email: '',
+      rendaAnual: ''
+    });
+    setEditandoId(null);
+    carregarClientes();
+  };
+
+  const editarCliente = (cliente: Cliente) => {
+    setNovoCliente({
+      nome: cliente.nome,
+      cpfCnpj: cliente.cpfCnpj,
+      email: cliente.email,
+      rendaAnual: cliente.rendaAnual.toString()
+    });
+    setEditandoId(cliente.id);
+  };
+
+  const excluirCliente = (id: string) => {
+    if (window.confirm('Tem certeza que deseja excluir este cliente?')) {
+      axios.delete(`http://localhost:8080/api/clientes/${id}`)
+        .then(() => {
+          alert('Cliente excluído com sucesso!');
+          carregarClientes();
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   const clientesFiltrados = clientes.filter(cliente =>
@@ -67,7 +105,7 @@ function Clientes() {
   return (
     <div className="clientes-container">
       <h2>Lista de Clientes</h2>
-      
+
       <input
         type="text"
         placeholder="Buscar por nome ou CPF/CNPJ"
@@ -82,6 +120,7 @@ function Clientes() {
             <th>CPF/CNPJ</th>
             <th>Email</th>
             <th>Renda Anual</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -93,12 +132,16 @@ function Clientes() {
               <td>{cliente.cpfCnpj}</td>
               <td>{cliente.email}</td>
               <td>R$ {cliente.rendaAnual.toFixed(2)}</td>
+              <td>
+                <button onClick={() => editarCliente(cliente)}>Editar</button>
+                <button onClick={() => excluirCliente(cliente.id)}>Excluir</button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3>Cadastrar Novo Cliente</h3>
+      <h3>{editandoId ? 'Editar Cliente' : 'Cadastrar Novo Cliente'}</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -132,7 +175,12 @@ function Clientes() {
           onChange={handleChange}
           required
         />
-        <button type="submit">Salvar Cliente</button>
+        <button type="submit">{editandoId ? 'Atualizar' : 'Salvar Cliente'}</button>
+        {editandoId && (
+          <button type="button" onClick={resetarFormulario} style={{ marginLeft: '10px' }}>
+            Cancelar Edição
+          </button>
+        )}
       </form>
     </div>
   );
