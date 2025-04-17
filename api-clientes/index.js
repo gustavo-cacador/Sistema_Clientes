@@ -35,9 +35,12 @@ app.get('/api/clientes/:id', (req, res) => {
 
 // método post para criar novo cliente
 app.post('/api/clientes', (req, res) => {
-  const novoCliente = { id: uuidv4(), ...req.body };
-
   const data = JSON.parse(fs.readFileSync(DB_PATH));
+
+  const proximoId = data.length > 0 ? Math.max(...data.map(c => Number(c.id))) + 1 : 1;
+
+  const novoCliente = { id: proximoId.toString(), ...req.body };
+
   data.push(novoCliente);
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 
