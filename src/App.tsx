@@ -7,12 +7,11 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <header>
-          <h1>Sistema de Clientes</h1>
+        <header className="main-header">
+          <h1>Sistema de Gerenciamento de Clientes Bancários</h1>
           <nav>
             <ul>
               <li><Link to="/clientes">Clientes</Link></li>
-              {/* Outros links de navegação */}
             </ul>
           </nav>
         </header>

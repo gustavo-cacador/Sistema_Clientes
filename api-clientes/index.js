@@ -50,14 +50,31 @@ app.post('/api/clientes', (req, res) => {
 // método put para atualizar cliente
 app.put('/api/clientes/:id', (req, res) => {
   const { id } = req.params;
-  const { nome, cpfCnpj, email, rendaAnual } = req.body;
+  const {
+    cpfCnpj, rg, dataNascimento, nome, nomeSocial, email,
+    endereco, rendaAnual, patrimonio, estadoCivil, codigoAgencia
+  } = req.body;
 
   const data = JSON.parse(fs.readFileSync(DB_PATH));
 
   const clienteIndex = data.findIndex(c => c.id === id);
 
   if (clienteIndex !== -1) {
-    data[clienteIndex] = { ...data[clienteIndex], nome, cpfCnpj, email, rendaAnual };
+    // Atualiza os campos do cliente
+    data[clienteIndex] = {
+      ...data[clienteIndex], // Mantém os outros dados não atualizados
+      cpfCnpj, 
+      rg, 
+      dataNascimento, 
+      nome, 
+      nomeSocial, 
+      email, 
+      endereco, 
+      rendaAnual, 
+      patrimonio, 
+      estadoCivil, 
+      codigoAgencia
+    };
     
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 
@@ -66,6 +83,7 @@ app.put('/api/clientes/:id', (req, res) => {
     res.status(404).json({ error: 'Cliente não encontrado' });
   }
 });
+
 
 
 // método delete para deletar cliente

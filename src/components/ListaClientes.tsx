@@ -23,13 +23,40 @@ const ListaClientes = () => {
   return (
     <div>
       <h2>Lista de Clientes</h2>
-      <ul>
-        {clientes.map(cliente => (
-          <li key={cliente.id}>
-            <strong>{cliente.nome}</strong> – {cliente.cpfCnpj} – {cliente.email}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Nome Social</th>
+            <th>CPF/CNPJ</th>
+            <th>RG</th>
+            <th>Email</th>
+            <th>Data de Nascimento</th>
+            <th>Endereço</th>
+            <th>Estado Civil</th>
+            <th>Código Agência</th>
+            <th>Renda Anual</th>
+            <th>Patrimônio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientes.map(cliente => (
+            <tr key={cliente.id}>
+              <td>{cliente.nome}</td>
+              <td>{cliente.nomeSocial}</td>
+              <td>{cliente.cpfCnpj}</td>
+              <td>{cliente.rg}</td>
+              <td>{cliente.email}</td>
+              <td>{new Date(cliente.dataNascimento).toLocaleDateString()}</td>
+              <td>{cliente.endereco}</td>
+              <td>{cliente.estadoCivil}</td>
+              <td>{cliente.codigoAgencia}</td>
+              <td>R$ {cliente.rendaAnual.toFixed(2)}</td>
+              <td>R$ {cliente.patrimonio.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
